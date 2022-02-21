@@ -17,6 +17,10 @@ public class SavingsAccount {
     @Column(name = "final_balance")
     private Double finalBalance;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accountNumber", referencedColumnName = "Id")
+    private User users;
+
     public SavingsAccount(){}
 
     public SavingsAccount(Double accountBalance, Double initialBalance, Double finalBalance){
@@ -47,5 +51,13 @@ public class SavingsAccount {
 
     public void setFinalBalance(Double finalBalance) {
         this.finalBalance = finalBalance;
+    }
+
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
     }
 }
