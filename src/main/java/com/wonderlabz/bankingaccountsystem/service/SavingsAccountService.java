@@ -29,7 +29,7 @@ public class SavingsAccountService {
         return savingsAccountRepository.save(sa);
     }
 
-    public void depositTrans(Double deposit){
+    public SavingsAccount depositTrans(Double deposit){
         SavingsAccount sa = new SavingsAccount();
         Double initialBalance = sa.getAccountBalance();
         Double finalBalance = initialBalance + deposit;
@@ -38,10 +38,10 @@ public class SavingsAccountService {
         sa.setInitialBalance(initialBalance);
         sa.setFinalBalance(finalBalance);
         sa.setAccountBalance(accountBalance);
-        savingsAccountRepository.save(sa);
+        return savingsAccountRepository.save(sa);
     }
 
-    public void withdrawalTrans(Double withdrawal){
+    public SavingsAccount withdrawalTrans(Double withdrawal){
         SavingsAccount sa = new SavingsAccount();
         Double initialBalance = sa.getAccountBalance();
         Double finalBalance = sa.getAccountBalance() - withdrawal;
@@ -51,7 +51,7 @@ public class SavingsAccountService {
         sa.setInitialBalance(initialBalance);
         sa.setFinalBalance(finalBalance);
         sa.setAccountBalance(accountBalance);
-        savingsAccountRepository.save(sa);
+        return savingsAccountRepository.save(sa);
     }
 
     public void transferTrans(Double transfer){}

@@ -27,7 +27,7 @@ public class CurrentAccountService {
         return currentAccountRepository.save(sa);
     }
 
-    public void currentAccountDeposit(Double depositAmount){
+    public CurrentAccount currentAccountDeposit(Double depositAmount){
         CurrentAccount sa = new CurrentAccount();
         Double initialBalance = sa.getAccountBalance();
         Double finalBalance = initialBalance + depositAmount;
@@ -36,10 +36,10 @@ public class CurrentAccountService {
         sa.setInitialBalance(initialBalance);
         sa.setFinalBalance(finalBalance);
         sa.setAccountBalance(accountBalance);
-        currentAccountRepository.save(sa);
+        return currentAccountRepository.save(sa);
     }
 
-    public void currentAccountWithdrawal(Double withdrawalAmount){
+    public CurrentAccount currentAccountWithdrawal(Double withdrawalAmount){
         CurrentAccount sa = new CurrentAccount();
         Double initialBalance = sa.getAccountBalance();
         Double finalBalance = initialBalance - withdrawalAmount;
@@ -52,6 +52,6 @@ public class CurrentAccountService {
         sa.setInitialBalance(initialBalance);
         sa.setFinalBalance(finalBalance);
         sa.setAccountBalance(accountBalance);
-        currentAccountRepository.save(sa);
+        return currentAccountRepository.save(sa);
     }
 }
