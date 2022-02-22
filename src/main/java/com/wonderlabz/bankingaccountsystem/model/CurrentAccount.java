@@ -2,6 +2,8 @@ package com.wonderlabz.bankingaccountsystem.model;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "current_account")
 public class CurrentAccount {
 
     @Id

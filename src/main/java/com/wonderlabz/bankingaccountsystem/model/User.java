@@ -2,6 +2,8 @@ package com.wonderlabz.bankingaccountsystem.model;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -63,7 +65,7 @@ public class User {
     }
 
     public void setAddress(String address) {
-        address = address;
+        this.address = address;
     }
 
     public String getCellNumber() {
