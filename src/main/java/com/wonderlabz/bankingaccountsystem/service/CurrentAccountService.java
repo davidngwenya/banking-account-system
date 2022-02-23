@@ -2,6 +2,7 @@ package com.wonderlabz.bankingaccountsystem.service;
 
 import com.wonderlabz.bankingaccountsystem.exception.OverDraftLimitException;
 import com.wonderlabz.bankingaccountsystem.model.CurrentAccount;
+import com.wonderlabz.bankingaccountsystem.model.User;
 import com.wonderlabz.bankingaccountsystem.repository.CurrentAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,13 @@ public class CurrentAccountService {
     }
 
     public CurrentAccount openCurrentAccount(Double initialDeposit){
+        User usr = new User();
+        usr.getId();
         CurrentAccount sa = new CurrentAccount();
         sa.setInitialBalance(initialDeposit);
         sa.setFinalBalance(initialDeposit);
         sa.setAccountBalance(initialDeposit);
+        sa.setAccountNumber(generateAccountNumber());
         sa.setTransactionType("Open Current Account");
         return currentAccountRepository.save(sa);
     }
@@ -53,5 +57,12 @@ public class CurrentAccountService {
         sa.setFinalBalance(finalBalance);
         sa.setAccountBalance(accountBalance);
         return currentAccountRepository.save(sa);
+    }
+
+    public static Long generateAccountNumber(){
+        long lowerBound = 10000L;
+        long higherBound = 100000L;
+        long generatedLong = lowerBound + (long) (Math.random() * (higherBound - lowerBound));
+        return generatedLong;
     }
 }

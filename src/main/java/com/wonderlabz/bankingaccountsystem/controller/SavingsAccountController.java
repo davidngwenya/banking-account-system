@@ -19,20 +19,20 @@ public class SavingsAccountController {
         this.savingsAccountService = savingsAccountService;
     }
 
-    @PostMapping("/open/{deposit}")
-    public ResponseEntity<SavingsAccount> openSavingsAccount(@RequestBody Double deposit){
+    @GetMapping("/open/{deposit}")
+    public ResponseEntity<SavingsAccount> openSavingsAccount(@PathVariable("deposit") Double deposit){
         SavingsAccount newSavings = savingsAccountService.openSavingsAccount(deposit);
         return new ResponseEntity<>(newSavings, HttpStatus.CREATED);
     }
 
-    @PutMapping("/deposit")
-    public ResponseEntity<SavingsAccount> savingsAccountDeposit(@RequestBody Double deposit){
+    @GetMapping("/deposit/{deposit}")
+    public ResponseEntity<SavingsAccount> savingsAccountDeposit(@PathVariable("deposit") Double deposit){
         SavingsAccount newDeposit = savingsAccountService.depositTrans(deposit);
         return new ResponseEntity<>(newDeposit, HttpStatus.OK);
     }
 
-    @PutMapping("/withdrawal")
-    public ResponseEntity<SavingsAccount> savingsAccountWithdrawal(@RequestBody Double withdrawal){
+    @GetMapping("/withdrawal")
+    public ResponseEntity<SavingsAccount> savingsAccountWithdrawal(@PathVariable("withdrawal") Double withdrawal){
         SavingsAccount newWithdrawal = savingsAccountService.withdrawalTrans(withdrawal);
         return new ResponseEntity<>(newWithdrawal, HttpStatus.OK);
     }

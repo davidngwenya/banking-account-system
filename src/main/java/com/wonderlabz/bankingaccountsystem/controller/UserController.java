@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bank/")
+@RequestMapping("/bank/users")
 public class UserController {
 
     private SystemUserService systemUserService;
@@ -20,12 +20,12 @@ public class UserController {
         this.systemUserService = systemUserService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/all")
     public List<User> getAllUsers(){
         return systemUserService.getAllUsers();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public User getUser(@PathVariable("id") Long id){
         return systemUserService.getUserById(id);
     }

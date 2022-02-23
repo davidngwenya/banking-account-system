@@ -19,20 +19,20 @@ public class CurrentAccountController {
         this.currentAccountService = currentAccountService;
     }
 
-    @PostMapping("/open")
-    public ResponseEntity<CurrentAccount> openCurrentAccount(@RequestBody Double deposit){
+    @GetMapping("/open/{deposit}")
+    public ResponseEntity<CurrentAccount> openCurrentAccount(@PathVariable("deposit") Double deposit){
         CurrentAccount newCurrent = currentAccountService.openCurrentAccount(deposit);
         return new ResponseEntity<>(newCurrent, HttpStatus.CREATED);
     }
 
-    @PutMapping("/deposit")
-    public ResponseEntity<CurrentAccount> currentAccountDeposit(@RequestBody Double deposit){
+    @GetMapping("/deposit/{deposit}")
+    public ResponseEntity<CurrentAccount> currentAccountDeposit(@PathVariable("deposit") Double deposit){
         CurrentAccount newDeposit = currentAccountService.currentAccountDeposit(deposit);
         return new ResponseEntity<>(newDeposit, HttpStatus.OK);
     }
 
-    @PutMapping("/withdrawal")
-    public ResponseEntity<CurrentAccount> savingsAccountWithdrawal(@RequestBody Double withdrawal){
+    @GetMapping("/withdrawal/{withdrawal}")
+    public ResponseEntity<CurrentAccount> savingsAccountWithdrawal(@PathVariable("withdrawal") Double withdrawal){
         CurrentAccount newWithdrawal = currentAccountService.currentAccountWithdrawal(withdrawal);
         return new ResponseEntity<>(newWithdrawal, HttpStatus.OK);
     }

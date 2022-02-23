@@ -8,6 +8,10 @@ public class SavingsAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private Long Id;
+
+    @Column(name = "account_number")
     private Long accountNumber;
 
     @Column(name = "account_balance")
@@ -22,13 +26,14 @@ public class SavingsAccount {
     @Column(name = "transaction_type")
     private String transactionType;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    /*@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "accountNumber", referencedColumnName = "Id")
-    private User users;
+    private User users;*/
 
     public SavingsAccount(){}
 
-    public SavingsAccount(Double accountBalance, Double initialBalance, Double finalBalance){
+    public SavingsAccount(Long accountNumber, Double accountBalance, Double initialBalance, Double finalBalance){
+        this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
         this.initialBalance = initialBalance;
         this.finalBalance = finalBalance;
@@ -58,13 +63,13 @@ public class SavingsAccount {
         this.finalBalance = finalBalance;
     }
 
-    public User getUsers() {
+    /*public User getUsers() {
         return users;
     }
 
     public void setUsers(User users) {
         this.users = users;
-    }
+    }*/
 
     public String getTransactionType() {
         return transactionType;
@@ -72,5 +77,13 @@ public class SavingsAccount {
 
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
+    }
+
+    public Long getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(Long accountNumber) {
+        this.accountNumber = accountNumber;
     }
 }

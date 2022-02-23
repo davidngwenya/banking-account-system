@@ -26,6 +26,14 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Savings_Account_Id")
+    private SavingsAccount savingsAccount;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Current_Account_Id")
+    private CurrentAccount currentAccount;
+
     public User(){}
 
     public User(String firstName, String lastName, String address, String cellNumber, String email){

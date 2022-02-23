@@ -7,6 +7,8 @@ import com.wonderlabz.bankingaccountsystem.exception.LowInitialDepositException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 public class SavingsAccountService {
 
@@ -25,6 +27,7 @@ public class SavingsAccountService {
         sa.setInitialBalance(initialDeposit);
         sa.setFinalBalance(initialDeposit);
         sa.setAccountBalance(initialDeposit);
+        sa.setAccountNumber(generateAccountNumber());
         sa.setTransactionType("Open Savings Account");
         return savingsAccountRepository.save(sa);
     }
@@ -52,6 +55,13 @@ public class SavingsAccountService {
         sa.setFinalBalance(finalBalance);
         sa.setAccountBalance(accountBalance);
         return savingsAccountRepository.save(sa);
+    }
+
+    public static Long generateAccountNumber(){
+        long lowerBound = 10000L;
+        long higherBound = 100000L;
+        long generatedLong = lowerBound + (long) (Math.random() * (higherBound - lowerBound));
+        return generatedLong;
     }
 
     public void transferTrans(Double transfer){}
