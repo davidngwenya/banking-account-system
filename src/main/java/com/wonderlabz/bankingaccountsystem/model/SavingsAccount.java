@@ -26,9 +26,9 @@ public class SavingsAccount {
     @Column(name = "transaction_type")
     private String transactionType;
 
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "accountNumber", referencedColumnName = "Id")
-    private User users;*/
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="Id", referencedColumnName = "Id")
+    private User bankUsers;
 
     public SavingsAccount(){}
 
@@ -63,14 +63,6 @@ public class SavingsAccount {
         this.finalBalance = finalBalance;
     }
 
-    /*public User getUsers() {
-        return users;
-    }
-
-    public void setUsers(User users) {
-        this.users = users;
-    }*/
-
     public String getTransactionType() {
         return transactionType;
     }
@@ -85,5 +77,13 @@ public class SavingsAccount {
 
     public void setAccountNumber(Long accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public User getBankUsers() {
+        return bankUsers;
+    }
+
+    public void setBankUsers(User bankUsers) {
+        this.bankUsers = bankUsers;
     }
 }

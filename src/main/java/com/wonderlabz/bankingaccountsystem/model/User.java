@@ -26,13 +26,21 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Savings_Account_Id")
-    private SavingsAccount savingsAccount;
+    /*@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumns({@JoinColumn(name = "Savings_Account_Id", referencedColumnName="Id"),
+                  @JoinColumn(name = "Savings_Account_Number", referencedColumnName="account_number"),
+                  @JoinColumn(name = "Savings_Account_Balance", referencedColumnName="account_balance") })
+    private SavingsAccount savingsAccount;*/
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Current_Account_Id")
+    /*@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Current_Account_Id", referencedColumnName="Id")
+    private CurrentAccount currentAccount;*/
+
+    @OneToOne(mappedBy = "savings_account")
     private CurrentAccount currentAccount;
+
+    @OneToOne(mappedBy = "current_account")
+    private SavingsAccount savingsAccount;
 
     public User(){}
 
