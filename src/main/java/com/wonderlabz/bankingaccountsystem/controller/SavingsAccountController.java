@@ -9,20 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/bank/account/savings")
+@RequestMapping("/bank/accounts/savings")
 public class SavingsAccountController {
 
     private SavingsAccountService savingsAccountService;
+
 
     @Autowired
     public SavingsAccountController(SavingsAccountService savingsAccountService){
         this.savingsAccountService = savingsAccountService;
     }
 
-    @GetMapping("/open/{deposit}")
-    public ResponseEntity<SavingsAccount> openSavingsAccount(@PathVariable("deposit") Double deposit){
-        SavingsAccount newSavings = savingsAccountService.openSavingsAccount(deposit);
-        return new ResponseEntity<>(newSavings, HttpStatus.CREATED);
+    @PostMapping("/open")
+    public ResponseEntity<SavingsAccount> openSavingsAccount(@RequestBody User user, @RequestParam("deposit") Double deposit){
+        SavingsAccount newSavings = savingsAccountService.openSavingsAccount(user, deposit);
+        return new ResponseEntity<SavingsAccount>(newSavings, HttpStatus.CREATED);
     }
 
     @GetMapping("/deposit/{deposit}")
@@ -31,9 +32,11 @@ public class SavingsAccountController {
         return new ResponseEntity<>(newDeposit, HttpStatus.OK);
     }
 
-    @GetMapping("/withdrawal")
+    @GetMapping("/withdrawal/{withdrawal}")
     public ResponseEntity<SavingsAccount> savingsAccountWithdrawal(@PathVariable("withdrawal") Double withdrawal){
         SavingsAccount newWithdrawal = savingsAccountService.withdrawalTrans(withdrawal);
         return new ResponseEntity<>(newWithdrawal, HttpStatus.OK);
     }
+
+    public
 }

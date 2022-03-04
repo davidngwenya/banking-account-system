@@ -1,6 +1,7 @@
 package com.wonderlabz.bankingaccountsystem.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "savings_account")
@@ -10,6 +11,9 @@ public class SavingsAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long Id;
+
+    @Column(name = "date")
+    private Date date;
 
     @Column(name = "account_number")
     private Long accountNumber;
@@ -26,17 +30,23 @@ public class SavingsAccount {
     @Column(name = "transaction_type")
     private String transactionType;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="Id", referencedColumnName = "Id")
+    @Column(name = "transaction_amount")
+    private Double transactionAmount;
+
+    @OneToOne
     private User bankUsers;
 
     public SavingsAccount(){}
 
-    public SavingsAccount(Long accountNumber, Double accountBalance, Double initialBalance, Double finalBalance){
+    public SavingsAccount(Date date, Long accountNumber, Double accountBalance, Double initialBalance, Double finalBalance, String transactionType,
+                          Double transactionAmount){
+        this.date = date;
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
         this.initialBalance = initialBalance;
         this.finalBalance = finalBalance;
+        this.transactionType = transactionType;
+        this.transactionAmount = transactionAmount;
     }
 
     public Double getAccountBalance() {
@@ -85,5 +95,21 @@ public class SavingsAccount {
 
     public void setBankUsers(User bankUsers) {
         this.bankUsers = bankUsers;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Double getTransactionAmount() {
+        return transactionAmount;
+    }
+
+    public void setTransactionAmount(Double transactionAmount) {
+        this.transactionAmount = transactionAmount;
     }
 }

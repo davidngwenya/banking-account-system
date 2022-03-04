@@ -4,17 +4,19 @@ package com.wonderlabz.bankingaccountsystem.controller;
 import com.wonderlabz.bankingaccountsystem.model.CurrentAccount;
 import com.wonderlabz.bankingaccountsystem.model.SavingsAccount;
 import com.wonderlabz.bankingaccountsystem.service.CurrentAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/bank/account/current")
+@RequestMapping("/bank/accounts/current")
 public class CurrentAccountController {
 
     private CurrentAccountService currentAccountService;
 
+    @Autowired
     public CurrentAccountController(CurrentAccountService currentAccountService){
         this.currentAccountService = currentAccountService;
     }
