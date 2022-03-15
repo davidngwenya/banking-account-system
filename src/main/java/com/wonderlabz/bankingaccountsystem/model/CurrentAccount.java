@@ -1,11 +1,15 @@
 package com.wonderlabz.bankingaccountsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "current_account")
-public class CurrentAccount {
+public class CurrentAccount implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +17,7 @@ public class CurrentAccount {
     private Long Id;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "account_number")
     private Long accountNumber;
@@ -33,12 +37,13 @@ public class CurrentAccount {
     @Column(name = "transaction_amount")
     private Double transactionAmount;
 
-    @OneToOne
+    @OneToOne(mappedBy = "currentAccount")
+    @JsonBackReference
     private User bankUsers;
 
     public CurrentAccount(){}
 
-    public CurrentAccount(Date date, Long accountNumber, Double accountBalance, Double initialBalance, Double finalBalance, String transactionType,
+    public CurrentAccount(LocalDateTime date, Long accountNumber, Double accountBalance, Double initialBalance, Double finalBalance, String transactionType,
                           Double transactionAmount){
         this.date = date;
         this.accountNumber = accountNumber;
@@ -89,6 +94,7 @@ public class CurrentAccount {
         this.accountNumber = accountNumber;
     }
 
+    @JsonBackReference
     public User getBankUsers() {
         return bankUsers;
     }
@@ -97,12 +103,12 @@ public class CurrentAccount {
         this.bankUsers = bankUsers;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate() {
+        this.date = LocalDateTime.now();
     }
 
     public Double getTransactionAmount() {

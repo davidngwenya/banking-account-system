@@ -1,10 +1,14 @@
 package com.wonderlabz.bankingaccountsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "bank_users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +30,20 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "Savings_Account_Id", referencedColumnName="Id"),
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    /*@JoinColumns({@JoinColumn(name = "Savings_Account_Id", referencedColumnName="Id"),
                   @JoinColumn(name = "Savings_Account_Number", referencedColumnName="account_number"),
-                  @JoinColumn(name = "Savings_Account_Balance", referencedColumnName="account_balance") })
+                  @JoinColumn(name = "Savings_Account_Balance", referencedColumnName="account_balance") })*/
+    @JoinColumn(name = "Savings_Account_Id", referencedColumnName="Id")
+    @JsonManagedReference
     private SavingsAccount savingsAccount;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "Current_Account_Id", referencedColumnName="Id"),
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    /*@JoinColumns({@JoinColumn(name = "Current_Account_Id", referencedColumnName="Id"),
             @JoinColumn(name = "Current_Account_Number", referencedColumnName="account_number"),
-            @JoinColumn(name = "Current_Account_Balance", referencedColumnName="account_balance") })
+            @JoinColumn(name = "Current_Account_Balance", referencedColumnName="account_balance") })*/
+    @JoinColumn(name = "Current_Account_Id", referencedColumnName="Id")
+    @JsonManagedReference
     private CurrentAccount currentAccount;
 
     /*@OneToOne(cascade = CascadeType.ALL)

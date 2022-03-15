@@ -1,11 +1,16 @@
 package com.wonderlabz.bankingaccountsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "savings_account")
-public class SavingsAccount {
+public class SavingsAccount implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +18,7 @@ public class SavingsAccount {
     private Long Id;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "account_number")
     private Long accountNumber;
@@ -33,12 +38,13 @@ public class SavingsAccount {
     @Column(name = "transaction_amount")
     private Double transactionAmount;
 
-    @OneToOne
+    @OneToOne(mappedBy = "savingsAccount", cascade = CascadeType.ALL)
+    @JsonBackReference
     private User bankUsers;
 
     public SavingsAccount(){}
 
-    public SavingsAccount(Date date, Long accountNumber, Double accountBalance, Double initialBalance, Double finalBalance, String transactionType,
+    public SavingsAccount(LocalDateTime date, Long accountNumber, Double accountBalance, Double initialBalance, Double finalBalance, String transactionType,
                           Double transactionAmount){
         this.date = date;
         this.accountNumber = accountNumber;
@@ -97,12 +103,12 @@ public class SavingsAccount {
         this.bankUsers = bankUsers;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate() {
+        this.date = LocalDateTime.now();
     }
 
     public Double getTransactionAmount() {

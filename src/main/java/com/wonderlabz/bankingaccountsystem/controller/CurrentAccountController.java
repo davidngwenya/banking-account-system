@@ -3,11 +3,14 @@ package com.wonderlabz.bankingaccountsystem.controller;
 
 import com.wonderlabz.bankingaccountsystem.model.CurrentAccount;
 import com.wonderlabz.bankingaccountsystem.model.SavingsAccount;
+import com.wonderlabz.bankingaccountsystem.model.User;
 import com.wonderlabz.bankingaccountsystem.service.CurrentAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -21,21 +24,36 @@ public class CurrentAccountController {
         this.currentAccountService = currentAccountService;
     }
 
-    @GetMapping("/open/{deposit}")
-    public ResponseEntity<CurrentAccount> openCurrentAccount(@PathVariable("deposit") Double deposit){
-        CurrentAccount newCurrent = currentAccountService.openCurrentAccount(deposit);
-        return new ResponseEntity<>(newCurrent, HttpStatus.CREATED);
+    @PostMapping("/open")
+    public ResponseEntity<CurrentAccount> openCurrentAccount(@RequestBody User user, @RequestParam("deposit") Double deposit) throws Throwable{
+        CurrentAccount newCurrent = currentAccountService.openCurrentAccount(user, deposit);
+        return new ResponseEntity<CurrentAccount>(newCurrent, HttpStatus.CREATED);
     }
 
-    @GetMapping("/deposit/{deposit}")
-    public ResponseEntity<CurrentAccount> currentAccountDeposit(@PathVariable("deposit") Double deposit){
-        CurrentAccount newDeposit = currentAccountService.currentAccountDeposit(deposit);
-        return new ResponseEntity<>(newDeposit, HttpStatus.OK);
+    @PutMapping("/deposit")
+    public ResponseEntity<?> currentAccountDeposit(@RequestBody User user, @RequestParam("deposit") Double deposit){
+        /*CurrentAccount newDeposit = */
+        currentAccountService.currentAccountDeposit(user, deposit);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/withdrawal/{withdrawal}")
-    public ResponseEntity<CurrentAccount> savingsAccountWithdrawal(@PathVariable("withdrawal") Double withdrawal){
-        CurrentAccount newWithdrawal = currentAccountService.currentAccountWithdrawal(withdrawal);
-        return new ResponseEntity<>(newWithdrawal, HttpStatus.OK);
+    @PutMapping("/withdrawal")
+    public ResponseEntity<?> currentAccountWithdrawal(@RequestBody User user, @RequestParam("withdrawal") Double withdrawal){
+        /*CurrentAccount newWithdrawal = */
+        currentAccountService.withdrawalTrans(user, withdrawal);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/transfer")
+    public ResponseEntity<?> currentToSavingsTransfer(@RequestBody User user, @RequestParam("transfer") Double transfer){
+        /*CurrentAccount newTransfer = */
+        currentAccountService.currentToSavingsTransfer(user, transfer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CurrentAccount>> currentAccountTransHistory(){
+        List<CurrentAccount> transHistory = currentAccountService.transactionHistory();
+        return new ResponseEntity<List<CurrentAccount>>(transHistory, HttpStatus.OK);
     }
 }
